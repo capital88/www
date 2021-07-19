@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+<div id='plotContainer' style='width: 100%; height: 100%;'>
+<div id='plotly_div' style='width: 100%; height: 100%;'>
+<img id="jpg-export"></img></div>
+<script>
+
+var img_jpg= d3.select('#jpg-export');
+
+// Plotting the Graph
+
+var trace={x:[3,9,8,10,4,6,5],y:[5,7,6,7,8,9,8],type:"scatter"};
+var trace1={x:[3,4,1,6,8,9,5],y:[4,2,5,2,1,7,3],type:"scatter"};
+var data = [trace,trace1];
+var layout = {title : "Simple JavaScript Graph"};
+Plotly.newPlot(
+  'plotly_div',
+   data,
+   layout)
+
+// static image in jpg format
+
+.then(
+    function(gd)
+     {
+      Plotly.toImage(gd,{format:'png',height:800,width:800})
+         .then(
+             function(url)
+         {
+             img_jpg.attr("src", url);
+         }
+         )
+    });
+//img_png.attr("src", url);
+  //Plotly.toImage(gd,{format:'png',height:400,width:400});
+
+data   = [{"x":["A","B","C","D","E"],"y":[0.0,0.0,0.75,0.75,0.0],"type":"scatter"},{"x":["A","B","C","D","E"],"y":[1.0,2.0,0.0,0.75,1.0],"yaxis":"y2","type":"scatter"}];
+var layout = {
+  title: 'multiple y-axes example',
+  width: 800,
+  xaxis: {domain: [0.3, 0.7]},
+    yaxis: {
+    //side: 'right', 
+    //type: 'linear', 
+    //color: '#444444', 
+    domain: [0, 0.25], 
+ overlaying: 'y',
+    //tickfont: {color: '#222222'}
+  },
+    yaxis2: {
+    //side: 'left', 
+    //type: 'linear', 
+    //color: '#444444', 
+    domain: [0.25, 0.49], 
+ overlaying: 'y',
+    //tickfont: {color: '#222222'}
+  }
+};
+config = {};
+Plotly.newPlot('plotContainer', data, layout, config);
+
+
+</script>
+</body></html>
